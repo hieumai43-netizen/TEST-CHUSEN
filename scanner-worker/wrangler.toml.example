@@ -1,0 +1,20 @@
+name = "chusen-internet-scanner"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://TEN-GITHUB.github.io"
+OPENAI_MODEL = "gpt-5.6"
+
+# Tạo KV Namespace trong Cloudflare rồi thay ID thật bên dưới.
+[[kv_namespaces]]
+binding = "CHUSEN_CACHE"
+id = "THAY_BANG_KV_NAMESPACE_ID"
+
+# 07:00 và 19:00 giờ Nhật Bản (Cloudflare Cron dùng UTC).
+[triggers]
+crons = ["0 22,10 * * *"]
+
+# Không ghi OPENAI_API_KEY hoặc SCAN_TOKEN vào file này.
+# Dùng: wrangler secret put OPENAI_API_KEY
+#      wrangler secret put SCAN_TOKEN

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#5b35e8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Chusen" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="description" content="Ứng dụng quản lý nhiều tài khoản và lịch chūsen." />
+  <title>Chusen Manager</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css?v=14" />
+</head>
+<body>
+  <div id="authRoot" class="auth-root"></div>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <div class="app-shell" id="appShell" hidden>
+    <header class="topbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Mở menu">☰</button>
+      <div>
+        <div class="app-title">Chusen Manager</div>
+        <div class="app-subtitle" id="pageSubtitle">Quản lý chūsen đơn giản</div>
+      </div>
+      <button class="auth-user-btn account-pill" id="authUserBtn" aria-label="Tài khoản đăng nhập"><span class="account-pill-icon">👤</span><span class="account-pill-text">Tài khoản</span></button>
+    </header>
+
+    <main id="app"></main>
+
+    <nav class="bottom-nav" aria-label="Điều hướng chính">
+      <button data-route="dashboard" class="nav-item active"><span>⌂</span><small>Tổng quan</small></button>
+      <button data-route="chusen" class="nav-item"><span>◫</span><small>Chūsen</small></button>
+      <button data-route="accounts" class="nav-item"><span>♙</span><small>Tài khoản</small></button>
+      <button data-route="transactions" class="nav-item"><span>↔</span><small>Giao dịch</small></button>
+      <button data-route="settings" class="nav-item"><span>⚙</span><small>Cài đặt</small></button>
+    </nav>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <div id="modalContent"></div>
+  </dialog>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js?v=14"></script>
+  <script src="app.js?v=14"></script>
+  <script src="auth.js?v=14"></script>
+</body>
+</html>

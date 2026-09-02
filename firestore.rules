@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && request.auth.token.email != null
+        && request.auth.token.email == "hieumai43@gmail.com";
+    }
+
+    match /users/{userId} {
+      // Người dùng chỉ được tạo hồ sơ của chính mình ở trạng thái chờ duyệt.
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.status == "pending";
+
+      // Người dùng đọc hồ sơ của chính mình; admin đọc toàn bộ danh sách.
+      allow read: if signedIn()
+        && (request.auth.uid == userId || isAdmin());
+
+      // Chỉ admin được duyệt, khóa, mở khóa hoặc xóa hồ sơ.
+      allow update, delete: if isAdmin();
+    }
+
+    // Lịch Chusen dùng chung: tài khoản đã đăng nhập được đọc,
+    // chỉ quản trị viên được thêm, sửa hoặc xóa dữ liệu.
+    match /chusenSchedule/{scheduleId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+  }
+}
